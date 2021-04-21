@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Times{% endblock %}
+
+{% block body %}
+    {% if times %}
+        <table id="times" class="table table-striped">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Comment</th>
+                <th>Date</th>
+                <th>Time (minutes)</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for time in times %}
+                <tr>
+                    <td>{{ time.title }}</td>
+                    <td>{{ time.comment }}</td>
+                    <td>{{ time.date|date('Y-m-d') }}</td>
+                    <td>{{ time.time }}</td>
+                    <td>
+                        <a href="/times/edit/{{ time.id }}" class="btn btn-light">Edit</a>
+                        <a href="#" class="btn btn-danger delete-time" data-id="{{ time.id }}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="navigation text-center">
+            {{ knp_pagination_render(times) }}
+        </div>
+    {% else %}
+        <p>No times to display</p>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/main.js"></script>
+{% endblock %}
